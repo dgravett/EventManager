@@ -18,10 +18,22 @@ namespace EventManagerWebApp
 
         private void Bind_Repeater()
         {
-            using (SqlDataAdapter sda = new SqlDataAdapter("SELECT name, description, time, (CONVERT(VARCHAR(100), latitude) + ' ' + CONVERT(VARCHAR(100), longitude)) as location FROM Event ORDER BY time DESC", conn))
+            using (SqlCommand sqlCmd = new SqlCommand())
             {
+                conn.Open();
+
+                sqlCmd.Connection = conn;
+                sqlCmd.CommandText = "SELECT name, description, time, (CONVERT(VARCHAR(100), latitude) + ' ' + CONVERT(VARCHAR(100), longitude)) as location FROM Event ORDER BY time DESC";
+
                 DataTable dt = new DataTable();
-                sda.Fill(dt);
+
+                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
+                {
+                    dt.Load(sqldr);
+                }
+
+                conn.Close();
+
                 RepeaterDiv.Style.Add("height", dt.Rows.Count * 125 + "px");
                 Repeater1.DataSource = dt;
                 Repeater1.DataBind();
