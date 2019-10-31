@@ -14,6 +14,9 @@ namespace EventManagerWebApp
             conn = new SqlConnection("Data Source=.;Initial Catalog=EventManager;Integrated Security=True");
 
             Bind_Repeater();
+
+            if (GlobalUserPassport.globalUserPassport != null)
+                LabelUserLevel.Text = ((DBEnum.User.Type)GlobalUserPassport.globalUserPassport.userType).ToString();
         }
 
         private void Bind_Repeater()
