@@ -29,6 +29,11 @@
     </style>
     <div class="jumbotron">
         <h1>Event Manager</h1>
+        <div>
+
+            <asp:Label ID="LabelUserLevel" runat="server"></asp:Label>
+
+        </div>
         <div id="RepeaterDiv" runat="server">
             Upcoming Events
             <asp:Repeater ID="Repeater1" runat="server">
