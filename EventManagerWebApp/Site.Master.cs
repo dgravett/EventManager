@@ -14,7 +14,10 @@ namespace EventManagerWebApp
             LogoutButton.Click += LogoutButton_Click;
 
             if (GlobalUserPassport.globalUserPassport == null)
+            {
                 liLogout.Visible = false;
+                liEvents.Visible = false;
+            }
             else
             {
                 liLogin.Visible = false;

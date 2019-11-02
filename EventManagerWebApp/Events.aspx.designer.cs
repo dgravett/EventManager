@@ -10,15 +10,24 @@
 namespace EventManagerWebApp {
     
     
-    public partial class _Default {
+    public partial class Events {
         
         /// <summary>
-        /// LabelUserLevel control.
+        /// RepeaterDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelUserLevel;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl RepeaterDiv;
+        
+        /// <summary>
+        /// Repeater1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater Repeater1;
     }
 }

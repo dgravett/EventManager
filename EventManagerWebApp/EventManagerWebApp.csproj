@@ -135,6 +135,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\Repeater.css" />
     <Content Include="Default.aspx" />
+    <Content Include="EventDetails.aspx" />
+    <Content Include="Events.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -191,6 +193,7 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="ConnectionString.cs" />
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -205,6 +208,20 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventDetails.aspx.cs">
+      <DependentUpon>EventDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EventDetails.aspx.designer.cs">
+      <DependentUpon>EventDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Events.aspx.cs">
+      <DependentUpon>Events.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events.aspx.designer.cs">
+      <DependentUpon>Events.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
