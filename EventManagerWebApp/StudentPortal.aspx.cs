@@ -80,6 +80,12 @@ namespace EventManagerWebApp
                 RepeaterRSOJoined.DataBind();
             }
         }
+
+        protected void ButtonModalOpen_Click(object sender, EventArgs e)
+        {
+
+        }
+
         protected void ButtonLeave_Click(object sender, EventArgs e) 
         {
             using (SqlCommand sqlCmd = new SqlCommand())
@@ -202,6 +208,56 @@ namespace EventManagerWebApp
                 RepeaterRSOAvailable.DataSource = dtAvailable;
                 RepeaterRSOAvailable.DataBind();
             }
+        }
+
+        protected void ButtonCreateRSO_Click(object sender, EventArgs e) 
+        {
+            string RSOName = TextBoxRSOName.Text;
+            string RSODescription = TextBoxRSODescription.Text;
+
+            using (SqlCommand sqlCmd = new SqlCommand())
+            {
+                RepeaterRSOJoined.DataSource = null;
+                RepeaterRSOAvailable.DataSource = null;
+                dtAvailable.Rows.Clear();
+                dtRSOJoined.Rows.Clear();
+
+                conn.Open();
+
+                sqlCmd.Connection = conn;
+                sqlCmd.CommandText = @"INSERT INTO RSO (name, description) VALUES (@RSOName,@RSOD)";
+                sqlCmd.Parameters.AddWithValue("@RSOName", RSOName);
+                sqlCmd.Parameters.AddWithValue("@RSOD", RSODescription);
+
+                sqlCmd.ExecuteNonQuery();
+
+                sqlCmd.CommandText = @"SELECT B.id, B.name, B.description FROM User_RSO A, RSO B WHERE (A.id_User = @UserID AND A.id_RSO = B.id)";
+                sqlCmd.Parameters.AddWithValue("@UserID", userID);
+                dtRSOJoined = new DataTable();
+                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
+                {
+                    dtRSOJoined.Load(sqldr);
+                }
+
+                sqlCmd.CommandText = @"SELECT A.* 
+                                       FROM RSO A
+                                       WHERE A.id NOT IN 
+			                                     (SELECT B.id 
+			                                     FROM User_RSO A, RSO B 
+			                                     WHERE (A.id_User = @UserID AND A.id_RSO = B.id))";
+                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
+                {
+                    dtAvailable.Load(sqldr);
+                }
+
+                conn.Close();
+
+                RepeaterRSOJoined.DataSource = dtRSOJoined;
+                RepeaterRSOJoined.DataBind();
+                RepeaterRSOAvailable.DataSource = dtAvailable;
+                RepeaterRSOAvailable.DataBind();
+            }
+
         }
     }
 }
