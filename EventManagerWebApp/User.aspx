@@ -39,12 +39,14 @@
      <div id="RepeaterDiv" runat="server" class="rptr" style="height:800px">
             <h1>RSOs Joined
             </h1>
+            
             <asp:Repeater ID="RepeaterRSO" runat="server">
                 <ItemTemplate>
                     <div class="rptr" style="width:700px;">
                         <table>
                             <tr><th colspan="2"><%#Eval("name") %></th></tr>
                             <tr><td>Description:</td><td><%#Eval("description") %></td></tr>
+                            <tr><td><asp:Button ID="Button1" runat="server" Text="Leave RSO" UseSubmitBehavior="false" OnClick="ButtonLeave_Click" CommandArgument='<%#Eval("id") %>'/></td></tr>
                         </table>
                     </div>
                 </ItemTemplate>

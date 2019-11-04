@@ -57,7 +57,7 @@ namespace EventManagerWebApp
                 conn.Open();
 
                 sqlCmd.Connection = conn;
-                sqlCmd.CommandText = @"SELECT DISTINCT B.name, B.description FROM User_RSO A, RSO B WHERE A.id_User = @UserID";
+                sqlCmd.CommandText = @"SELECT B.id, B.name, B.description FROM User_RSO A, RSO B WHERE (A.id_User = @UserID AND A.id_RSO = B.id)";
 
                 sqlCmd.Parameters.AddWithValue("@UserID", UserID);
 
@@ -69,6 +69,42 @@ namespace EventManagerWebApp
                 }
 
                 conn.Close();
+
+                RepeaterDiv.Style.Add("height", dtRSO.Rows.Count * 150 + 150 + "px");
+                RepeaterRSO.DataSource = dtRSO;
+                RepeaterRSO.DataBind();
+            }
+        }
+
+        protected void ButtonLeave_Click(object sender, EventArgs e) 
+        {
+            using (SqlCommand sqlCmd = new SqlCommand())
+            {
+                Button button = sender as Button;
+                String RSOID = button.CommandArgument;
+
+                conn.Open();
+
+                sqlCmd.Connection = conn;
+                sqlCmd.CommandText = @"DELETE FROM User_RSO WHERE (id_RSO = @RSOID AND id_User = @UserID)";
+
+                sqlCmd.Parameters.AddWithValue("@RSOID", int.Parse(RSOID));
+                sqlCmd.Parameters.AddWithValue("@UserID", userID);
+
+                sqlCmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                for (int i = 0; i < dtRSO.Rows.Count; i++)
+                {
+                    DataRow dr = dtRSO.Rows[i];
+
+                    if (dr["id"].ToString() == RSOID)
+                    {
+                        dtRSO.Rows.Remove(dr);
+                        break;
+                    }
+                }
 
                 RepeaterDiv.Style.Add("height", dtRSO.Rows.Count * 150 + 150 + "px");
                 RepeaterRSO.DataSource = dtRSO;

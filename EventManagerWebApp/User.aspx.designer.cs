@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EventManagerWebApp {
-    
-    
-    public partial class User {
-        
+namespace EventManagerWebApp
+{
+
+
+    public partial class User
+    {
+
         /// <summary>
         /// LabelHeader control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace EventManagerWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelHeader;
-        
+
         /// <summary>
         /// LabelUserName control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace EventManagerWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelUserName;
-        
+
         /// <summary>
         /// LabelUserUni control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace EventManagerWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelUserUni;
-        
+
         /// <summary>
         /// LabelUserLevel control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace EventManagerWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelUserLevel;
-        
+
         /// <summary>
         /// RepeaterDiv control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace EventManagerWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl RepeaterDiv;
-        
+
         /// <summary>
         /// RepeaterRSO control.
         /// </summary>
