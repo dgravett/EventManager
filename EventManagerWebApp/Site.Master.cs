@@ -17,6 +17,7 @@ namespace EventManagerWebApp
             {
                 liLogout.Visible = false;
                 liEvents.Visible = false;
+                liUser.Visible = false;
             }
             else
             {

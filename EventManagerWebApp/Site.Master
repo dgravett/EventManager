@@ -53,6 +53,7 @@
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Home</a></li>
                         <li id="liEvents" runat="server"><a runat="server" href="Events.aspx">Events</a></li>
+                        <li id="liUser" runat="server"><a runat="server" href="User.aspx">My Account</a></li>
                         <li id="liLogin" runat="server"><a runat="server" href="LoginPage.aspx">Login</a></li>
                         <li id="liSignup" runat="server"><a runat="server" href="SignupPage.aspx">Signup</a></li>
                         <li id="liLogout" runat="server"><asp:LinkButton ID="LogoutButton" runat="server">Logout</asp:LinkButton></li>
