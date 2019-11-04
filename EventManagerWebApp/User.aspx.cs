@@ -70,9 +70,9 @@ namespace EventManagerWebApp
 
                 conn.Close();
 
-/*                RepeaterDiv.Style.Add("height", dtComments.Rows.Count * 150 + 150 + "px");
-                RepeaterComments.DataSource = dtComments;
-                RepeaterComments.DataBind();*/
+                RepeaterDiv.Style.Add("height", dtRSO.Rows.Count * 150 + 150 + "px");
+                RepeaterRSO.DataSource = dtRSO;
+                RepeaterRSO.DataBind();
             }
         }
     }
