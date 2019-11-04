@@ -18,12 +18,19 @@ namespace EventManagerWebApp
                 liLogout.Visible = false;
                 liEvents.Visible = false;
                 liUser.Visible = false;
+                liStudent.Visible = false;
             }
             else
             {
                 liLogin.Visible = false;
                 liSignup.Visible = false;
+                //not a student, dont show student portal
+                if (GlobalUserPassport.globalUserPassport.userType != 3)
+                {
+                    liStudent.Visible = false;
+                }
             }
+
         }
 
         private void LogoutButton_Click(object sender, EventArgs e)

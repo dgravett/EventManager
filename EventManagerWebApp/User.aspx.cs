@@ -58,7 +58,6 @@ namespace EventManagerWebApp
 
                 sqlCmd.Connection = conn;
                 sqlCmd.CommandText = @"SELECT B.id, B.name, B.description FROM User_RSO A, RSO B WHERE (A.id_User = @UserID AND A.id_RSO = B.id)";
-
                 sqlCmd.Parameters.AddWithValue("@UserID", UserID);
 
                 dtRSO = new DataTable();
@@ -87,7 +86,6 @@ namespace EventManagerWebApp
 
                 sqlCmd.Connection = conn;
                 sqlCmd.CommandText = @"DELETE FROM User_RSO WHERE (id_RSO = @RSOID AND id_User = @UserID)";
-
                 sqlCmd.Parameters.AddWithValue("@RSOID", int.Parse(RSOID));
                 sqlCmd.Parameters.AddWithValue("@UserID", userID);
 
