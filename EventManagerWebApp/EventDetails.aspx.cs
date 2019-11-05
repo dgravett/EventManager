@@ -118,7 +118,12 @@ namespace EventManagerWebApp
             using (SqlCommand sqlCmd = new SqlCommand())
             {
                 Button button = sender as Button;
-                String CommentId = button.CommandArgument;
+                String[] input = button.CommandArgument.Split(';');
+                String CommentId = input[0];
+                String UserName = input[1];
+
+                if (UserName != GlobalUserPassport.globalUserPassport.userName)
+                    return;
 
                 conn.Open();
 

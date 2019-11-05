@@ -9,6 +9,7 @@ namespace EventManagerWebApp
     public partial class Events : System.Web.UI.Page
     {
         SqlConnection conn;
+        DataTable dtEvents;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,23 +28,30 @@ namespace EventManagerWebApp
                 sqlCmd.CommandText = @"SELECT 
                                             Event.id, 
                                             Event.name,
+                                            EventType.id as id_EventType,
                                             EventType.description as EventType,
                                             Event.time
                                       FROM Event 
                                             LEFT JOIN Event_EventType on Event.id = Event_EventType.id_Event
                                             LEFT JOIN EventType on Event_EventType.id_EventType = EventType.id
+                                            LEFT JOIN Event_RSO on Event.id = Event_RSO.id_Event
+                                            LEFT JOIN User_RSO on Event_RSO.id_RSO = User_RSO.id_RSO
+                                      WHERE
+                                            Event_RSO.id_RSO IS NULL OR User_RSO.id_User = @UserId
                                       ORDER BY time ASC";
-                DataTable dt = new DataTable();
+                dtEvents = new DataTable();
+
+                sqlCmd.Parameters.Add(new SqlParameter("@UserId", GlobalUserPassport.globalUserPassport.userId));
 
                 using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
                 {
-                    dt.Load(sqldr);
+                    dtEvents.Load(sqldr);
                 }
 
                 conn.Close();
 
-                RepeaterDiv.Style.Add("height", dt.Rows.Count * 155 + "px");
-                Repeater1.DataSource = dt;
+                RepeaterDiv.Style.Add("height", dtEvents.Rows.Count * 155 + "px");
+                Repeater1.DataSource = dtEvents;
                 Repeater1.DataBind();
             }
         }
@@ -54,6 +62,28 @@ namespace EventManagerWebApp
             String EventId = button.CommandArgument;
 
             Response.Redirect("EventDetails.aspx?EventId=" + EventId);
+        }
+
+        protected void ButtonFilter_Click(object sender, EventArgs e)
+        {
+            String filterText = TextBoxFilter.Text;
+            bool publicEvent = CheckBoxPublic.Checked;
+            bool privateEvent = CheckBoxPrivate.Checked;
+            bool rsoEvent = CheckBoxRSO.Checked;
+
+            DataTable filteredTable = dtEvents.AsEnumerable().Where(r => r.Field<string>("name").Contains(filterText)).CopyToDataTable();
+            if (publicEvent || privateEvent || rsoEvent)
+            {
+                if (!publicEvent)
+                    filteredTable = filteredTable.AsEnumerable().Where(r => r.Field<int>("id_EventType") != 2).CopyToDataTable();
+                if (!privateEvent)
+                    filteredTable = filteredTable.AsEnumerable().Where(r => r.Field<int>("id_EventType") != 1).CopyToDataTable();
+                if (!rsoEvent)
+                    filteredTable = filteredTable.AsEnumerable().Where(r => r.Field<int>("id_EventType") != 3).CopyToDataTable();
+            }
+
+            Repeater1.DataSource = filteredTable;
+            Repeater1.DataBind();
         }
     }
 }
