@@ -7,83 +7,81 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EventManagerWebApp
-{
-
-
-    public partial class SiteMaster
-    {
-
+namespace EventManagerWebApp {
+    
+    
+    public partial class Events {
+        
         /// <summary>
-        /// liEvents control.
+        /// LabelFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liEvents;
-
+        protected global::System.Web.UI.WebControls.Label LabelFilter;
+        
         /// <summary>
-        /// liUser control.
+        /// TextBoxFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liUser;
-
+        protected global::System.Web.UI.WebControls.TextBox TextBoxFilter;
+        
         /// <summary>
-        /// liStudent control.
+        /// CheckBoxPrivate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liStudent;
-
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxPrivate;
+        
         /// <summary>
-        /// liLogin control.
+        /// CheckBoxPublic control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLogin;
-
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxPublic;
+        
         /// <summary>
-        /// liSignup control.
+        /// CheckBoxRSO control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSignup;
-
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxRSO;
+        
         /// <summary>
-        /// liLogout control.
+        /// ButtonFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLogout;
-
+        protected global::System.Web.UI.WebControls.Button ButtonFilter;
+        
         /// <summary>
-        /// LogoutButton control.
+        /// RepeaterDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LogoutButton;
-
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl RepeaterDiv;
+        
         /// <summary>
-        /// MainContent control.
+        /// Repeater1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.Repeater Repeater1;
     }
 }

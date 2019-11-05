@@ -15,7 +15,7 @@ namespace EventManagerWebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            conn = new SqlConnection("Data Source=.;Initial Catalog=EventManager;Integrated Security=True");
+            conn = new SqlConnection(ConnectionString.connectionString);
 
             if (GlobalUserPassport.globalUserPassport != null)
                 Login1.Visible = false;
@@ -30,6 +30,7 @@ namespace EventManagerWebApp
             {
                 GlobalUserPassport.globalUserPassport = new UserPassport(UserInfo.Item1, Login1.UserName, UserInfo.Item2);
                 e.Authenticated = true;
+                Response.Redirect("Events.aspx");
             }
             else
             {
