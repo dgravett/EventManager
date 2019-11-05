@@ -24,11 +24,6 @@ namespace EventManagerWebApp
             {
                 liLogin.Visible = false;
                 liSignup.Visible = false;
-                //not a student, dont show student portal
-                if (GlobalUserPassport.globalUserPassport.userType != 3)
-                {
-                    liStudent.Visible = false;
-                }
             }
 
         }
