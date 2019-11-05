@@ -15,7 +15,30 @@ namespace EventManagerWebApp
         {
             conn = new SqlConnection(ConnectionString.connectionString);
 
-            Bind_Repeater();
+            Bind_DropDownList();
+        }
+
+        private void Bind_DropDownList()
+        {
+            using (SqlCommand sqlCmd = new SqlCommand())
+            {
+                conn.Open();
+
+                sqlCmd.Connection = conn;
+                sqlCmd.CommandText = @"SELECT id, name
+                                      FROM University";
+                DataTable dtUniversities = new DataTable();
+
+                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
+                {
+                    dtUniversities.Load(sqldr);
+                }
+
+                conn.Close();
+
+                DropDownList.DataSource = dtUniversities;
+                DropDownList.DataBind();
+            }
         }
 
         private void Bind_Repeater()
@@ -36,12 +59,15 @@ namespace EventManagerWebApp
                                             LEFT JOIN EventType on Event_EventType.id_EventType = EventType.id
                                             LEFT JOIN Event_RSO on Event.id = Event_RSO.id_Event
                                             LEFT JOIN User_RSO on Event_RSO.id_RSO = User_RSO.id_RSO
+                                            LEFT JOIN Event_University on Event.id = Event_University.id_Event
                                       WHERE
-                                            Event_RSO.id_RSO IS NULL OR User_RSO.id_User = @UserId
+                                            (Event_RSO.id_RSO IS NULL OR User_RSO.id_User = @UserId)
+                                            AND Event_University.id_University = @UniversityId
                                       ORDER BY time ASC";
                 dtEvents = new DataTable();
 
                 sqlCmd.Parameters.Add(new SqlParameter("@UserId", GlobalUserPassport.globalUserPassport.userId));
+                sqlCmd.Parameters.Add(new SqlParameter("@UniversityId", DropDownList.SelectedValue));
 
                 using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
                 {
@@ -66,6 +92,9 @@ namespace EventManagerWebApp
 
         protected void ButtonFilter_Click(object sender, EventArgs e)
         {
+            if(dtEvents == null)
+                Bind_Repeater();
+
             String filterText = TextBoxFilter.Text;
             bool publicEvent = CheckBoxPublic.Checked;
             bool privateEvent = CheckBoxPrivate.Checked;
