@@ -18,11 +18,14 @@ namespace EventManagerWebApp
 
         public int userType { get; set; }
 
-        public UserPassport(int UserId, string UserName, int UserType)
+        public int universityId { get; set; }
+
+        public UserPassport(int UserId, string UserName, int UserType, int UniversityId)
         {
             userId = UserId;
             userName = UserName;
             userType = UserType;
+            universityId = UniversityId;
         }
     }
 }
