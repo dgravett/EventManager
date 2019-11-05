@@ -16,7 +16,7 @@ namespace EventManagerWebApp
         public int userID = (GlobalUserPassport.globalUserPassport.userId);
         public string userLevel = ((DBEnum.User.Type)GlobalUserPassport.globalUserPassport.userType).ToString();
         public string userUni = "";
-        DataTable dtRSOJoined, dtRSOJoined2, dtAvailable, dtAvailable2;
+        DataTable dtRSOJoined, dtAvailable;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -225,14 +225,20 @@ namespace EventManagerWebApp
                 conn.Open();
 
                 sqlCmd.Connection = conn;
-                sqlCmd.CommandText = @"INSERT INTO RSO (name, description) VALUES (@RSOName,@RSOD)";
+                sqlCmd.CommandText = @"INSERT INTO RSO (name, description, approved) 
+                                       VALUES (@RSOName,@RSOD, 0) 
+
+                                       UPDATE User_UserType
+                                       SET id_UserType = 2
+                                       WHERE id_User = @UserID";
+
                 sqlCmd.Parameters.AddWithValue("@RSOName", RSOName);
                 sqlCmd.Parameters.AddWithValue("@RSOD", RSODescription);
+                sqlCmd.Parameters.AddWithValue("@UserID", userID);
 
                 sqlCmd.ExecuteNonQuery();
 
                 sqlCmd.CommandText = @"SELECT B.id, B.name, B.description FROM User_RSO A, RSO B WHERE (A.id_User = @UserID AND A.id_RSO = B.id)";
-                sqlCmd.Parameters.AddWithValue("@UserID", userID);
                 dtRSOJoined = new DataTable();
                 using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
                 {
