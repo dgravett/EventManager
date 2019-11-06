@@ -21,6 +21,7 @@ namespace EventManagerWebApp
         {
             conn = new SqlConnection(ConnectionString.connectionString);
 
+            
             EventId = int.Parse(Request.QueryString["EventId"]);
 
             LoadEventDetails(EventId);
