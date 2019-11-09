@@ -32,6 +32,18 @@
             line-height:5px;
             height:25px;
         }
+        .ModalPopupBG
+        {
+            background-color: #d0ddf2;
+            filter: alpha(opacity=50);
+            opacity: 0.7;
+        }
+        .FormPopup
+        {
+            min-width:400px;
+            min-height:300px;
+            background:white;
+        }
     </style>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmsjtqUy3YtAN1fS-XWHZw1CVVlFjMEaI&callback=initialize"></script>  
     <script>  
@@ -53,6 +65,9 @@
             });
         }  
     </script>
+    <div>
+        
+    </div>
     <div style="margin-top:20px">
         <asp:Label ID="LabelHeader" runat="server" Text="Label" Font-Size="XX-Large"></asp:Label>
     </div>
@@ -87,8 +102,31 @@
                             <tr><th colspan="2"><%#Eval("commentText") %></th></tr>
                             <tr><td>Rating:</td><td><%#Eval("rating") %> Stars</td></tr>
                             <tr><td><%#Eval("userName") %></td><td><%#Eval("date") %></td></tr>
-                            <tr><td><asp:Button ID="ButtonEditComment" runat="server" Text="Edit Comment" UseSubmitBehavior="false" OnClick="ButtonEditComment_Click" CommandArgument='<%#Eval("id") %>' CssClass="button"/></td><td><asp:Button ID="ButtonDeleteComment" runat="server" Text="Delete Comment" UseSubmitBehavior="false" OnClick="ButtonDeleteComment_Click" CommandArgument='<%#Eval("id") + ";" + Eval("userName") %>' CssClass="button"/></td></tr>
+                            <tr><td><asp:Button ID="ButtonEditComment" runat="server" Text="Edit Comment" UseSubmitBehavior="false" OnClientClick="return false" CommandArgument='<%#Eval("id") %>' CssClass="button" Visible='<%# CheckUserId((string)Eval("userName")) %>'/></td><td><asp:Button ID="ButtonDeleteComment" runat="server" Text="Delete Comment" UseSubmitBehavior="false" OnClick="ButtonDeleteComment_Click" CommandArgument='<%#Eval("id") + ";" + Eval("userName") %>' CssClass="button" Visible='<%# CheckUserId((string)Eval("userName")) %>'/></td></tr>
                         </table>
+                        <asp:Panel ID="PanelForm" runat="server" align="center" style="display:none">
+                            <div class="FormPopup">
+                                <div id="ModalHeader">
+                                    <br />
+                                    <br />
+                                    <h2>Edit Comment</h2>
+                                </div>
+
+                                <div>
+                                    <br /> 
+                                    <asp:TextBox ID="TextBoxComment" runat="server" Text='<%#Eval("commentText") %>' TextMode="MultiLine" Height="100px" Width="500px"></asp:TextBox>
+                                    <br />
+                                    <br />
+                                </div>
+
+                                <div>
+                                    <asp:Button ID="ButtonModalSend" runat="server" Text="Done" UseSubmitBehavior="false" OnClick="ButtonModalSend_Click" CommandArgument='<%#Eval("id") + ";" + Eval("userName") %>'/>
+                                    <input id="ButtonModalCancel" type="button" value="Cancel" />
+                                </div>
+                            </div>
+                        </asp:Panel>
+                        <ajaxToolkit:ModalPopupExtender ID="ModalForm" runat="server" PopupControlID="PanelForm" TargetControlID="ButtonEditComment" OkControlID="ButtonModalSend"
+                        CancelControlID="ButtonModalCancel" BackgroundCssClass="ModalPopupBG"></ajaxToolkit:ModalPopupExtender>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
