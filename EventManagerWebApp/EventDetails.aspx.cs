@@ -135,6 +135,7 @@ namespace EventManagerWebApp
 
                 conn.Close();
 
+                LoadComments(EventId);
                 SetRepeater();
             }
         }
@@ -210,6 +211,7 @@ namespace EventManagerWebApp
 
                 conn.Close();
 
+                LoadComments(EventId);
                 SetRepeater();
             }
         }
