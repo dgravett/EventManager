@@ -52,10 +52,12 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
-                        <li><a runat="server" href="LoginPage.aspx">Login</a></li>
-                        <li><a runat="server" href="SignupPage.aspx">Signup</a></li>
+                        <li id="liEvents" runat="server"><a runat="server" href="Events.aspx">Events</a></li>
+                        <li id="liUser" runat="server"><a runat="server" href="User.aspx">My Account</a></li>
+                        <li id="liStudent" runat="server"><a runat="server" href="StudentPortal.aspx">RSO Management</a></li>
+                        <li id="liLogin" runat="server"><a runat="server" href="LoginPage.aspx">Login</a></li>
+                        <li id="liSignup" runat="server"><a runat="server" href="SignupPage.aspx">Signup</a></li>
+                        <li id="liLogout" runat="server"><asp:LinkButton ID="LogoutButton" runat="server">Logout</asp:LinkButton></li>
                     </ul>
                 </div>
             </div>

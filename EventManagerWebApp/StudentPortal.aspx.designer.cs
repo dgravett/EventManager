@@ -11,79 +11,106 @@ namespace EventManagerWebApp
 {
 
 
-    public partial class SiteMaster
+    public partial class StudentPortal
     {
 
         /// <summary>
-        /// liEvents control.
+        /// LabelHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liEvents;
+        protected global::System.Web.UI.WebControls.Label LabelHeader;
 
         /// <summary>
-        /// liUser control.
+        /// LabelUserLevel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liUser;
+        protected global::System.Web.UI.WebControls.Label LabelUserLevel;
 
         /// <summary>
-        /// liStudent control.
+        /// LabelUserUni control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liStudent;
+        protected global::System.Web.UI.WebControls.Label LabelUserUni;
 
         /// <summary>
-        /// liLogin control.
+        /// PanelForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLogin;
+        protected global::System.Web.UI.WebControls.Panel PanelForm;
 
         /// <summary>
-        /// liSignup control.
+        /// TextBoxRSOName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSignup;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxRSOName;
 
         /// <summary>
-        /// liLogout control.
+        /// TextBoxRSODescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLogout;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxRSODescription;
 
         /// <summary>
-        /// LogoutButton control.
+        /// ButtonModalSend control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LogoutButton;
+        protected global::System.Web.UI.WebControls.Button ButtonModalSend;
 
         /// <summary>
-        /// MainContent control.
+        /// ButtonModalOpen control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.Button ButtonModalOpen;
+
+        /// <summary>
+        /// ModalForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender ModalForm;
+
+        /// <summary>
+        /// RepeaterRSOAvailable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater RepeaterRSOAvailable;
+
+        /// <summary>
+        /// RepeaterRSOJoined control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater RepeaterRSOJoined;
     }
 }

@@ -11,7 +11,7 @@ namespace EventManagerWebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            UserPassport userPassport = GlobalUserPassport.globalUserPassport;
         }
     }
 }
