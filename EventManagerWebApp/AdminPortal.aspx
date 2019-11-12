@@ -41,14 +41,13 @@
             height:25px;
         }
         .textbox {  
-            height: 30px;  
-            padding: 0 10px;  
-            border: solid;    
+            height: 30px;      
             font-size: 16px;  
             width: 470px;  
         }  
         .dropDownList {
             width: 300px;
+            height: 30px;
         }
     </style>
     <asp:HiddenField ID="hf_Lat" Value="" runat="server" />
@@ -82,8 +81,6 @@
             });
             google.maps.event.addListener(diag, 'click', function (event) {
                 //placeMarker(event.LatLng);
-                document.getElementById('latclicked').innerHTML = event.latLng.lat();
-                document.getElementById('longclicked').innerHTML = event.latLng.lng();
                 document.getElementById('<%= hf_Lat.ClientID %>').value = event.latLng.lat();
                 document.getElementById('<%= hf_Lng.ClientID %>').value = event.latLng.lng();
 

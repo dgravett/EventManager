@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EventManagerWebApp
-{
-
-
-    public partial class SiteMaster
-    {
-
+namespace EventManagerWebApp {
+    
+    
+    public partial class SiteMaster {
+        
         /// <summary>
         /// liEvents control.
         /// </summary>
@@ -22,16 +20,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liEvents;
-
-        /// <summary>
-        /// liUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liUser;
-
+        
         /// <summary>
         /// liStudent control.
         /// </summary>
@@ -40,7 +29,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liStudent;
-
+        
         /// <summary>
         /// liAdmin control.
         /// </summary>
@@ -49,7 +38,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAdmin;
-
+        
         /// <summary>
         /// liSuperAdmin control.
         /// </summary>
@@ -58,7 +47,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSuperAdmin;
-
+        
         /// <summary>
         /// liLogin control.
         /// </summary>
@@ -67,7 +56,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLogin;
-
+        
         /// <summary>
         /// liSignup control.
         /// </summary>
@@ -76,7 +65,16 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSignup;
-
+        
+        /// <summary>
+        /// liUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liUser;
+        
         /// <summary>
         /// liLogout control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLogout;
-
+        
         /// <summary>
         /// LogoutButton control.
         /// </summary>
@@ -94,7 +92,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LogoutButton;
-
+        
         /// <summary>
         /// MainContent control.
         /// </summary>
