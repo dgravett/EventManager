@@ -17,7 +17,7 @@ namespace EventManagerWebApp
         protected string locationName;
         protected void Page_Load(object sender, EventArgs e)
         {
-            conn = new SqlConnection(@"Data Source=LAPTOP-QD6F9K1Q\SQLEXPRESS;Initial Catalog=EventManager;Integrated Security=True");
+            conn = new SqlConnection(ConnectionString.connectionString);
 
             if (!Page.IsPostBack)
             {

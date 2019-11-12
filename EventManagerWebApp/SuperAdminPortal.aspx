@@ -89,7 +89,6 @@
                             <tr><th colspan="2"><%#Eval("name") %></th></tr>
                             <tr><td>Description:</td><td><%#Eval("description") %></td></tr>
                             <tr><td><asp:Button ID="btnApprove" runat="server" Text="Approve" UseSubmitBehavior="false" OnClick="btnApprove_Click" CommandArgument='<%#Eval("id") %>'/>
-                                    <asp:Button ID="btnReject" runat="server" Text="Reject" UseSubmitBehavior="false" OnClick="btnReject_Click" CommandArgument='<%#Eval("id") %>'/>
                             </td></tr>
                         </table>
                     </div>
