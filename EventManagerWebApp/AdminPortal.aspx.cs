@@ -17,7 +17,7 @@ namespace EventManagerWebApp
         protected string locationName;
         protected void Page_Load(object sender, EventArgs e)
         {
-            conn = new SqlConnection(@"Data Source=LAPTOP-QD6F9K1Q\SQLEXPRESS;Initial Catalog=EventManager;Integrated Security=True");
+            conn = new SqlConnection(ConnectionString.connectionString);
 
             if (!Page.IsPostBack)
             {
@@ -60,7 +60,7 @@ namespace EventManagerWebApp
                 sqlCmd.Parameters.AddWithValue("@idUniversity",GlobalUserPassport.globalUserPassport.universityId);
                 if (int.Parse(ddlType.SelectedValue) == (int) DBEnum.Event.Type.RSO)
                 {
-                    sqlCmd.Parameters.AddWithValue("@idRSO", eventName.Text);
+                    sqlCmd.Parameters.AddWithValue("@idRSO", DropDownList.SelectedValue);
                 }
                 else
                 {
