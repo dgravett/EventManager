@@ -15,6 +15,24 @@ namespace EventManagerWebApp
     {
 
         /// <summary>
+        /// hf_Lat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hf_Lat;
+
+        /// <summary>
+        /// hf_Lng control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hf_Lng;
+
+        /// <summary>
         /// eventName control.
         /// </summary>
         /// <remarks>
@@ -78,13 +96,13 @@ namespace EventManagerWebApp
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
 
         /// <summary>
-        /// DropDownList1 control.
+        /// DropDownList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList;
 
         /// <summary>
         /// createEvent control.
@@ -103,23 +121,5 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ltMessage;
-
-        /// <summary>
-        /// RepeaterDiv control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl RepeaterDiv;
-
-        /// <summary>
-        /// Repeater1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater Repeater1;
     }
 }
