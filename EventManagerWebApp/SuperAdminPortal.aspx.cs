@@ -147,47 +147,6 @@ namespace EventManagerWebApp
             }
         }
 
-        protected void btnReject_Click(object sender, EventArgs e)
-        {
-            using (SqlCommand sqlCmd = new SqlCommand())
-            {
-                Button button = sender as Button;
-                String EventID = button.CommandArgument;
-                rptrPending.DataSource = null;
-                rptrApproved.DataSource = null;
-                dtPendingEvents.Rows.Clear();
-                dtApprovedEvents.Rows.Clear();
-
-                conn.Open();
-
-                sqlCmd.Connection = conn;
-                sqlCmd.CommandText = @"DELETE FROM Event WHERE id = @EventID";
-
-                sqlCmd.Parameters.AddWithValue("@EventID", int.Parse(EventID));
-                sqlCmd.ExecuteNonQuery();
-
-                sqlCmd.CommandText = @"SELECT A.* FROM Event A WHERE approved = 1";
-                dtApprovedEvents = new DataTable();
-                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
-                {
-                    dtApprovedEvents.Load(sqldr);
-                }
-
-                sqlCmd.CommandText = @"SELECT A.* FROM Event A WHERE approved = 0";
-                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
-                {
-                    dtPendingEvents.Load(sqldr);
-                }
-
-                conn.Close();
-
-                rptrPending.DataSource = dtPendingEvents;
-                rptrPending.DataBind();
-                rptrApproved.DataSource = dtApprovedEvents;
-                rptrApproved.DataBind();
-            }
-        }
-
         protected void btnRevoke_Click(object sender, EventArgs e)
         {
             using (SqlCommand sqlCmd = new SqlCommand())

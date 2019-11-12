@@ -89,12 +89,13 @@
     <div>
         <table style="width: 100%;">
             <tr>
-                <td><div><h1>Available</h1></div></td>
-                <td><div><h1>Joined</h1></div></td>
+                <td>
+                    <h1>Pending Events</h1>
+                </td>
+                <td>
+                    <h1>Approved Events</h1>
+                </td>
             </tr>
-
-        </table>
-        <table style="width: 100%;">
             <tr>
                 <td><asp:Repeater ID="RepeaterRSOAvailable" runat="server">
                 <ItemTemplate>
