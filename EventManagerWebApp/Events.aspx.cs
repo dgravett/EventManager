@@ -108,7 +108,7 @@ namespace EventManagerWebApp
             bool rsoEvent = CheckBoxRSO.Checked;
 
             DataTable filteredTable = dtEvents.AsEnumerable().Where(r => r.Field<string>("name").Contains(filterText)).CopyToDataTable();
-            filteredTable = dtEvents.AsEnumerable().Where(r => r.Field<int>("id_University") == int.Parse(DropDownList.SelectedValue)).CopyToDataTable();
+            filteredTable = filteredTable.AsEnumerable().Where(r => r.Field<int>("id_University") == int.Parse(DropDownList.SelectedValue)).CopyToDataTable();
             if (publicEvent || privateEvent || rsoEvent)
             {
                 if (!publicEvent)
