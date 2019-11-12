@@ -227,5 +227,30 @@ namespace EventManagerWebApp
                 rptrApproved.DataBind();
             }
         }
+
+        protected void btnCreateUniversity_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void btnConfirm_Click(object sender, EventArgs e)
+        {
+            using (SqlCommand sqlCmd = new SqlCommand())
+            {
+                conn.Open();
+
+                sqlCmd.Connection = conn;
+                sqlCmd.CommandText = @"INSERT INTO University (name, location, description, numStudents)
+                                       VALUES (@universityName, @universityLocation, @universityDescription, @maximumStudents)";
+
+                sqlCmd.Parameters.Add(new SqlParameter("@universityName", txtUniversityName.Text));
+                sqlCmd.Parameters.Add(new SqlParameter("@universityLocation", txtUniversityLocation.Text));
+                sqlCmd.Parameters.Add(new SqlParameter("@universityDescription", txtUniversityDescription.Text));
+                sqlCmd.Parameters.Add(new SqlParameter("@maximumStudents", txtMaximumStudents.Text));
+                sqlCmd.ExecuteReader();
+
+                conn.Close();
+            }
+        }
     }
 }
