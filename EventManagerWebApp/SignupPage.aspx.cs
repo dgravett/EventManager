@@ -39,6 +39,7 @@ namespace EventManagerWebApp
                 sqlCommand.Parameters.Add(new SqlParameter("@UniversityID", ddlUniversity.SelectedValue));
 
                 sqlCommand.ExecuteReader();
+                Response.Redirect("LoginPage.aspx");
             }
         }
 
