@@ -29,15 +29,13 @@ namespace EventManagerWebApp
                 conn.Open();
 
                 sqlCmd.Connection = conn;
-                sqlCmd.CommandText = @"SELECT [User].id, User_UserType.id_UserType, User_University.id_University 
+                sqlCmd.CommandText = @"SELECT [User].id, [User].password, User_UserType.id_UserType, User_University.id_University 
                                        FROM [User]
                                             LEFT JOIN User_UserType on [User].id = User_UserType.id_User
                                             LEFT JOIN User_University on [User].id = User_University.id_User
-                                       WHERE userName = @userName AND password = @password
-                                    ";
+                                       WHERE userName = @userName";
 
                 sqlCmd.Parameters.Add(new SqlParameter("@userName", UserName));
-                sqlCmd.Parameters.Add(new SqlParameter("@password", Password));
 
                 DataTable dt = new DataTable();
 
@@ -48,13 +46,25 @@ namespace EventManagerWebApp
 
                 conn.Close();
                 List<int> userInfo = new List<int>();
+                List<int> falseInfo = new List<int>();
+                string userPassword = "";
                 if (dt.Rows.Count > 0)
                 {
                     userInfo.Add((int)dt.Rows[0]["id"]);
                     userInfo.Add((int)dt.Rows[0]["id_UserType"]);
                     userInfo.Add((int)dt.Rows[0]["id_University"]);
+                    userPassword = ((string)dt.Rows[0]["password"]);
                 }
-                return userInfo;
+
+                if (BCrypt.Net.BCrypt.Verify(Password, userPassword))
+                {
+                    return userInfo;
+                }
+                else
+                {
+                    return falseInfo;
+                }
+                    
             }
         }
 

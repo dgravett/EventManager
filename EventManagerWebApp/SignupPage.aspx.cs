@@ -35,7 +35,7 @@ namespace EventManagerWebApp
                                            INSERT INTO User_UserType VALUES (@UserID, 3)
                                         ";
                 sqlCommand.Parameters.Add(new SqlParameter("@userName", txtUsername.Text));
-                sqlCommand.Parameters.Add(new SqlParameter("@password", txtPassword.Text));
+                sqlCommand.Parameters.Add(new SqlParameter("@password", BCrypt.Net.BCrypt.HashPassword(txtPassword.Text)));
                 sqlCommand.Parameters.Add(new SqlParameter("@UniversityID", ddlUniversity.SelectedValue));
 
                 sqlCommand.ExecuteReader();
