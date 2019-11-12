@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -18,36 +19,20 @@ namespace EventManagerWebApp
             conn = new SqlConnection(ConnectionString.connectionString);
 
             if (GlobalUserPassport.globalUserPassport != null)
-                Login1.Visible = false;
-            else
-                Login1.Authenticate += Login1_Authenticate;
+                btnLogin.Visible = false;
         }
 
-        private void Login1_Authenticate(object sender, AuthenticateEventArgs e)
-        {
-            Tuple<int, int> UserInfo = AttemptLogin(Login1.UserName, Login1.Password);
-            if (UserInfo.Item1 != -1)
-            {
-                GlobalUserPassport.globalUserPassport = new UserPassport(UserInfo.Item1, Login1.UserName, UserInfo.Item2,1);
-                e.Authenticated = true;
-                Response.Redirect("Events.aspx");
-            }
-            else
-            {
-                e.Authenticated = false;
-            }
-        }
-
-        private Tuple<int, int> AttemptLogin(string UserName, string Password)
+        private List<int> AttemptLogin(string UserName, string Password)
         {
             using (SqlCommand sqlCmd = new SqlCommand())
             {
                 conn.Open();
 
                 sqlCmd.Connection = conn;
-                sqlCmd.CommandText = @"SELECT [User].id, User_UserType.id_UserType 
+                sqlCmd.CommandText = @"SELECT [User].id, User_UserType.id_UserType, User_University.id_University 
                                        FROM [User]
                                             LEFT JOIN User_UserType on [User].id = User_UserType.id_User
+                                            LEFT JOIN User_University on [User].id = User_University.id_User
                                        WHERE userName = @userName AND password = @password
                                     ";
 
@@ -62,15 +47,28 @@ namespace EventManagerWebApp
                 }
 
                 conn.Close();
-
+                List<int> userInfo = new List<int>();
                 if (dt.Rows.Count > 0)
                 {
-                    return new Tuple<int, int>((int)dt.Rows[0]["id"], (int)dt.Rows[0]["id_UserType"]);
+                    userInfo.Add((int)dt.Rows[0]["id"]);
+                    userInfo.Add((int)dt.Rows[0]["id_UserType"]);
+                    userInfo.Add((int)dt.Rows[0]["id_University"]);
                 }
-                else
-                {
-                    return new Tuple<int, int>(-1, -1);
-                }
+                return userInfo;
+            }
+        }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            List<int> UserInfo = AttemptLogin(txtUsername.Text, txtPassword.Text);
+            if (UserInfo.Count != 0)
+            {
+                GlobalUserPassport.globalUserPassport = new UserPassport(UserInfo[0], txtUsername.Text, UserInfo[1], UserInfo[2]);
+                Response.Redirect("Events.aspx");
+            }
+            else
+            {
+                lblError.Text = "Invalid Login";
             }
         }
     }
