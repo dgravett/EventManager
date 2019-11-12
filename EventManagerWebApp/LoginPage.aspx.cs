@@ -28,7 +28,7 @@ namespace EventManagerWebApp
             Tuple<int, int> UserInfo = AttemptLogin(Login1.UserName, Login1.Password);
             if (UserInfo.Item1 != -1)
             {
-                GlobalUserPassport.globalUserPassport = new UserPassport(UserInfo.Item1, Login1.UserName, UserInfo.Item2,0);
+                GlobalUserPassport.globalUserPassport = new UserPassport(UserInfo.Item1, Login1.UserName, UserInfo.Item2,1);
                 e.Authenticated = true;
                 Response.Redirect("Events.aspx");
             }

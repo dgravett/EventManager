@@ -34,6 +34,7 @@
             background:white;
         }
     </style>
+
     <div style="margin-top:20px">
         <asp:Label ID="LabelHeader" runat="server" Text="Label" Font-Size="XX-Large"></asp:Label>
     </div>
@@ -88,7 +89,14 @@
     <div>
         <table style="width: 100%;">
             <tr>
-                <td><h1>Available</h1> <asp:Repeater ID="RepeaterRSOAvailable" runat="server">
+                <td><div><h1>Available</h1></div></td>
+                <td><div><h1>Joined</h1></div></td>
+            </tr>
+
+        </table>
+        <table style="width: 100%;">
+            <tr>
+                <td><asp:Repeater ID="RepeaterRSOAvailable" runat="server">
                 <ItemTemplate>
                     <div class="rptr" style="width:600px;">
                         <table>
@@ -100,7 +108,7 @@
                 </ItemTemplate>
             </asp:Repeater></td>
 
-                <td><h1>Joined</h1> <asp:Repeater ID="RepeaterRSOJoined" runat="server">
+                <td><asp:Repeater ID="RepeaterRSOJoined" runat="server">
                 <ItemTemplate>
                     <div class="rptr" style="width:600px;">
                         <table>

@@ -15,7 +15,10 @@ namespace EventManagerWebApp
         {
             conn = new SqlConnection(ConnectionString.connectionString);
 
-            Bind_DropDownList();
+            if (!Page.IsPostBack)
+            {
+                Bind_DropDownList();
+            }
         }
 
         private void Bind_DropDownList()
@@ -25,8 +28,11 @@ namespace EventManagerWebApp
                 conn.Open();
 
                 sqlCmd.Connection = conn;
-                sqlCmd.CommandText = @"SELECT id, name
-                                      FROM University";
+                sqlCmd.CommandText = @"SELECT University.id, University.name
+                                      FROM University
+                                            LEFT JOIN User_University on University.id = User_University.id_University
+                                      GROUP BY University.id, University.name
+                                      HAVING COUNT(User_University.id_User) > 0";
                 DataTable dtUniversities = new DataTable();
 
                 using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
@@ -53,7 +59,8 @@ namespace EventManagerWebApp
                                             Event.name,
                                             EventType.id as id_EventType,
                                             EventType.description as EventType,
-                                            Event.time
+                                            Event.time,
+                                            Event_University.id_University
                                       FROM Event 
                                             LEFT JOIN Event_EventType on Event.id = Event_EventType.id_Event
                                             LEFT JOIN EventType on Event_EventType.id_EventType = EventType.id
@@ -62,12 +69,10 @@ namespace EventManagerWebApp
                                             LEFT JOIN Event_University on Event.id = Event_University.id_Event
                                       WHERE
                                             (Event_RSO.id_RSO IS NULL OR User_RSO.id_User = @UserId)
-                                            AND Event_University.id_University = @UniversityId
                                       ORDER BY time ASC";
                 dtEvents = new DataTable();
 
                 sqlCmd.Parameters.Add(new SqlParameter("@UserId", GlobalUserPassport.globalUserPassport.userId));
-                sqlCmd.Parameters.Add(new SqlParameter("@UniversityId", DropDownList.SelectedValue));
 
                 using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
                 {
@@ -75,6 +80,8 @@ namespace EventManagerWebApp
                 }
 
                 conn.Close();
+
+                dtEvents = dtEvents.AsEnumerable().Where(r => !(r.Field<int>("id_University") != GlobalUserPassport.globalUserPassport.universityId && r.Field<int>("id_EventType") == (int)DBEnum.Event.Type.Private)).CopyToDataTable();
 
                 RepeaterDiv.Style.Add("height", dtEvents.Rows.Count * 155 + "px");
                 Repeater1.DataSource = dtEvents;
@@ -101,6 +108,7 @@ namespace EventManagerWebApp
             bool rsoEvent = CheckBoxRSO.Checked;
 
             DataTable filteredTable = dtEvents.AsEnumerable().Where(r => r.Field<string>("name").Contains(filterText)).CopyToDataTable();
+            filteredTable = dtEvents.AsEnumerable().Where(r => r.Field<int>("id_University") == int.Parse(DropDownList.SelectedValue)).CopyToDataTable();
             if (publicEvent || privateEvent || rsoEvent)
             {
                 if (!publicEvent)

@@ -22,9 +22,13 @@ namespace EventManagerWebApp
             conn = new SqlConnection(ConnectionString.connectionString);
 
             EventId = int.Parse(Request.QueryString["EventId"]);
-
             LoadEventDetails(EventId);
-            LoadComments(EventId);
+
+            if (!Page.IsPostBack)
+            {
+                LoadComments(EventId);
+                SetRepeater();
+            }
         }
 
         private void LoadEventDetails(int EventId)
@@ -101,16 +105,7 @@ namespace EventManagerWebApp
                 }
 
                 conn.Close();
-
-                RepeaterDiv.Style.Add("height", dtComments.Rows.Count * 150 + 150 + "px");
-                RepeaterComments.DataSource = dtComments;
-                RepeaterComments.DataBind();
             }
-        }
-
-        protected void ButtonEditComment_Click(object sender, EventArgs e)
-        {
-
         }
 
         protected void ButtonDeleteComment_Click(object sender, EventArgs e)
@@ -140,20 +135,54 @@ namespace EventManagerWebApp
 
                 conn.Close();
 
-                for(int i = 0; i < dtComments.Rows.Count; i++)
-                {
-                    DataRow dr = dtComments.Rows[i];
+                LoadComments(EventId);
+                SetRepeater();
+            }
+        }
 
-                    if(dr["id"].ToString() == CommentId)
+        protected void ButtonModalSend_Click(object sender, EventArgs e)
+        {
+            using (SqlCommand sqlCmd = new SqlCommand())
+            {
+                Button button = sender as Button;
+                String[] input = button.CommandArgument.Split(';');
+                String CommentId = input[0];
+                String UserName = input[1];
+
+                String newText = "";
+
+                LoadComments(EventId);
+
+                for(int i = 0; i < RepeaterComments.Controls.Count; i++)
+                {
+                        Control ctrl = RepeaterComments.Controls[i];
+                    String temp = ((TextBox)ctrl.FindControl("TextBoxComment")).Text;
+                    if (temp != (string)dtComments.Rows[i]["commentText"])
                     {
-                        dtComments.Rows.Remove(dr);
+                        newText = temp;
                         break;
                     }
                 }
 
-                RepeaterDiv.Style.Add("height", dtComments.Rows.Count * 150 + 150 + "px");
-                RepeaterComments.DataSource = dtComments;
-                RepeaterComments.DataBind();
+                if (UserName != GlobalUserPassport.globalUserPassport.userName || newText == "")
+                    return;
+
+                conn.Open();
+
+                sqlCmd.Connection = conn;
+                sqlCmd.CommandText = @"UPDATE Comment
+                                       SET commentText = @commentText
+                                       WHERE id = @CommentId";
+
+                sqlCmd.Parameters.AddWithValue("@commentText", newText);
+                sqlCmd.Parameters.AddWithValue("@CommentId", int.Parse(CommentId));
+
+                sqlCmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                LoadComments(EventId);
+                SetRepeater();
             }
         }
 
@@ -182,18 +211,21 @@ namespace EventManagerWebApp
 
                 conn.Close();
 
-                DataRow dr = dtComments.NewRow();
-                dr["commentText"] = TextBoxComment.Text;
-                dr["date"] = DateTime.UtcNow;
-                dr["rating"] = rating;
-                dr["userName"] = GlobalUserPassport.globalUserPassport.userName;
-
-                dtComments.Rows.Add(dr);
-
-                RepeaterDiv.Style.Add("height", dtComments.Rows.Count * 150 + 150 + "px");
-                RepeaterComments.DataSource = dtComments;
-                RepeaterComments.DataBind();
+                LoadComments(EventId);
+                SetRepeater();
             }
+        }
+
+        protected Boolean CheckUserId(string userName)
+        {
+            return userName == GlobalUserPassport.globalUserPassport.userName;
+        }
+
+        private void SetRepeater()
+        {
+            RepeaterDiv.Style.Add("height", dtComments.Rows.Count * 150 + 150 + "px");
+            RepeaterComments.DataSource = dtComments;
+            RepeaterComments.DataBind();
         }
     }
 }
