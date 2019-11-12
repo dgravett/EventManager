@@ -258,6 +258,8 @@ namespace EventManagerWebApp
 
                 conn.Close();
 
+                GlobalUserPassport.globalUserPassport.userType = 2;
+
                 RepeaterRSOJoined.DataSource = dtRSOJoined;
                 RepeaterRSOJoined.DataBind();
                 RepeaterRSOAvailable.DataSource = dtAvailable;

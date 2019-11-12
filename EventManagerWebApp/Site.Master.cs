@@ -20,16 +20,24 @@ namespace EventManagerWebApp
                 liUser.Visible = false;
                 liStudent.Visible = false;
                 liSuperAdmin.Visible = false;
+                liAdmin.Visible = false;
             }
             else
             {
                 if(GlobalUserPassport.globalUserPassport.userType == 1)
                 {
                     liSuperAdmin.Visible = true;
+                    liAdmin.Visible = false;
+                }
+                else if (GlobalUserPassport.globalUserPassport.userType == 2)
+                {
+                    liAdmin.Visible = true;
+                    liSuperAdmin.Visible = false;
                 }
                 else
                 {
                     liSuperAdmin.Visible = false;
+                    liAdmin.Visible = false;
                 }
                 liLogin.Visible = false;
                 liSignup.Visible = false;
