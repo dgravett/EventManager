@@ -124,11 +124,11 @@
         </div>
         <div>
             <label>Description</label><br/>
-            <asp:TextBox ID="eventDescription" runat ="server" CssClass="textbox"/>
+            <asp:TextBox ID="eventDescription" runat ="server" CssClass="textbox" TextMode="MultiLine" Height="90px"/>
         </div>
         <div>
             <label>Location</label><br/>
-            <asp:TextBox ID="eventLocation" runat ="server" CssClass="textbox" TextMode="MultiLine" Height="90px"/>
+            <asp:TextBox ID="eventLocation" runat ="server" CssClass="textbox"/>
         </div>
         <div>
             <label>Event Date</label><br/>
