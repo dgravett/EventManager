@@ -4,14 +4,35 @@
     <h1>Login</h1>
     <div class="jumbotron">
         <div>
-            <asp:Login ID="Login1" runat="server" Width="378px" BackColor="#EFF3FB" BorderColor="#B5C7DE" BorderPadding="4" BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#333333" Height="142px" VisibleWhenLoggedIn="false">
-                <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
-                <LoginButtonStyle BackColor="White" BorderColor="#507CD1" BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284E98" />
-                <TextBoxStyle Font-Size="0.8em" />
-                <TitleTextStyle BackColor="#507CD1" Font-Bold="True" Font-Size="0.9em" ForeColor="White" />
-            </asp:Login>
-        </div>
+
         <div>
+            <table style="width: 97%; height: 143px;">
+                <tr>
+                    <td style="width: 103px">
+                        <asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Textbox ID="txtUsername" runat="server" /></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="width: 103px">
+                        <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Textbox ID="txtPassword" runat="server" TextMode="Password" /></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="width: 103px">&nbsp;</td>
+                    <td>
+                        <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
+                        <asp:Label ID="lblError" runat="server" Text=""></asp:Label>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+        </div>
 
         </div>
     </div>
