@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EventManagerWebApp
-{
-
-
-    public partial class SuperAdminPortal
-    {
-
+namespace EventManagerWebApp {
+    
+    
+    public partial class SuperAdminPortal {
+        
         /// <summary>
         /// lblUserName control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserName;
-
+        
         /// <summary>
         /// lblUserType control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserType;
-
+        
         /// <summary>
         /// lblUniversity control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUniversity;
-
+        
         /// <summary>
         /// PanelForm control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel PanelForm;
-
+        
         /// <summary>
         /// txtUniversityName control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUniversityName;
-
+        
         /// <summary>
         /// txtUniversityDescription control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUniversityDescription;
-
+        
         /// <summary>
         /// txtUniversityLocation control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUniversityLocation;
-
+        
         /// <summary>
         /// txtMaximumStudents control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMaximumStudents;
-
+        
         /// <summary>
         /// btnConfirm control.
         /// </summary>
@@ -94,7 +92,16 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnConfirm;
-
+        
+        /// <summary>
+        /// btnCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancel;
+        
         /// <summary>
         /// btnCreateUniversity control.
         /// </summary>
@@ -103,7 +110,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCreateUniversity;
-
+        
         /// <summary>
         /// ModalForm control.
         /// </summary>
@@ -112,7 +119,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender ModalForm;
-
+        
         /// <summary>
         /// rptrPending control.
         /// </summary>
@@ -121,7 +128,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptrPending;
-
+        
         /// <summary>
         /// rptrApproved control.
         /// </summary>

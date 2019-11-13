@@ -19,6 +19,9 @@ namespace EventManagerWebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (GlobalUserPassport.globalUserPassport == null)
+                Response.Redirect("Default.aspx");
+
             conn = new SqlConnection(ConnectionString.connectionString);
 
             EventId = int.Parse(Request.QueryString["EventId"]);

@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EventManagerWebApp
-{
-
-
-    public partial class AdminPortal
-    {
-
+namespace EventManagerWebApp {
+    
+    
+    public partial class AdminPortal {
+        
         /// <summary>
         /// hf_Lat control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hf_Lat;
-
+        
         /// <summary>
         /// hf_Lng control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hf_Lng;
-
+        
         /// <summary>
         /// eventName control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox eventName;
-
+        
         /// <summary>
         /// eventDescription control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox eventDescription;
-
+        
         /// <summary>
         /// eventLocation control.
         /// </summary>
@@ -58,16 +56,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox eventLocation;
-
-        /// <summary>
-        /// eventDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar eventDate;
-
+        
         /// <summary>
         /// eventNumber control.
         /// </summary>
@@ -76,7 +65,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox eventNumber;
-
+        
         /// <summary>
         /// eventEmail control.
         /// </summary>
@@ -85,7 +74,7 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox eventEmail;
-
+        
         /// <summary>
         /// ddlType control.
         /// </summary>
@@ -94,7 +83,16 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
-
+        
+        /// <summary>
+        /// labelRSO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelRSO;
+        
         /// <summary>
         /// DropDownList control.
         /// </summary>
@@ -103,7 +101,16 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList;
-
+        
+        /// <summary>
+        /// eventDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar eventDate;
+        
         /// <summary>
         /// createEvent control.
         /// </summary>
@@ -112,14 +119,5 @@ namespace EventManagerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button createEvent;
-
-        /// <summary>
-        /// ltMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltMessage;
     }
 }

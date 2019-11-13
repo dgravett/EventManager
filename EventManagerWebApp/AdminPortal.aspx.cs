@@ -17,23 +17,19 @@ namespace EventManagerWebApp
         protected string locationName;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (GlobalUserPassport.globalUserPassport == null)
+                Response.Redirect("Default.aspx");
+
             conn = new SqlConnection(ConnectionString.connectionString);
 
             if (!Page.IsPostBack)
             {
                 Bind_DropDownList();
-                //lat = hf_Lat.Value;
-                //lng = hf_Lng.Value;
-            }
-                
+            }   
         }
 
         protected void createEvent_Click(object sender, EventArgs e)
         {
-
-            string msg = string.Format("New Event Created!");
-            ltMessage.Text = msg;
-
             using (SqlCommand sqlCmd = new SqlCommand())
             {
                 conn.Open();

@@ -9,8 +9,6 @@
         <h1>Event Manager</h1>
         <div>
 
-            <asp:Label ID="LabelUserLevel" runat="server"></asp:Label>
-
         </div>
         <div></div>
     </div>

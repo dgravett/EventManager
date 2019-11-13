@@ -1,8 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AdminPortal.aspx.cs" Inherits="EventManagerWebApp.AdminPortal" %>
 
-
-
-
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
         <style type="text/css">
@@ -50,49 +47,36 @@
             height: 30px;
         }
     </style>
-    <asp:HiddenField ID="hf_Lat" Value="" runat="server" />
-    <asp:HiddenField ID="hf_Lng" Value="" runat="server" />
+    <asp:HiddenField ID="hf_Lat" Value="28.6024" runat="server" />
+    <asp:HiddenField ID="hf_Lng" Value="-81.2001" runat="server" />
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmsjtqUy3YtAN1fS-XWHZw1CVVlFjMEaI&callback=initialize"></script>  
     <script>  
         var mapcode;
         var diag;
         var oldMarker;
         function initialize() {
+            var val = $dropDownList = $('[id*="DropDownList"]'), $labelRSO = $('[id*="labelRSO"]');
+            $dropDownList.hide();
+            $labelRSO.hide();
             mapcode = new google.maps.Geocoder();
-            var lnt = new google.maps.LatLng(<%=lat%>, <%=lng%>);
+            var lnt = new google.maps.LatLng(<%=hf_Lat.Value%>, <%=hf_Lng.Value%>);
             var diagChoice = {
                 zoom: 15,
-                center: { lat: 28.6024, lng: -81.2001},//lnt,
+                center: lnt,
                 diagId: google.maps.MapTypeId.ROADMAP
             }
             var diag = new google.maps.Map(document.getElementById('map_populate'), diagChoice);
-<%--            var marker = new google.maps.Marker({
-                position: { lat: 28.6024, lng: -81.2001 },//lnt,
-                map: diag,
-                title: '<%=locationName%>'
-            });
-            marker.addListener('click', function () {
-                diag.setCenter(marker.getPosition());
-            });--%>
             var marker = new google.maps.Marker({
-                position: { lat: 28.6024, lng: -81.2001 },//lnt,
+                position: lnt,
                 map: diag,
                 title: '<%=locationName%>'
             });
             google.maps.event.addListener(diag, 'click', function (event) {
-                //placeMarker(event.LatLng);
                 document.getElementById('<%= hf_Lat.ClientID %>').value = event.latLng.lat();
                 document.getElementById('<%= hf_Lng.ClientID %>').value = event.latLng.lng();
 
                 var lll = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
                 marker.setPosition(lll);
-
-                //var marker = new google.maps.Marker({
-                //    position: lnt,
-                //    //position: { lat: event.LatLng.lat(), lng: event.LatLng.lng() },//lnt,
-                //    map: diag,
-                    
-                //});
             });
             function placeMarker(location) {
                 marker = new google.maps.Marker({
@@ -106,14 +90,22 @@
                 oldMarker = marker;
                 map.setCenter(location);
             }
-            //marker.addListener(diag, 'click', function (event)){
-            //    placeMarker(event.LatLng);
-            //});
-            //function placeMarker(location) {
-            //    marker.setPosition(location);
-            //}
-            
         }
+    </script>
+    <script>
+        $(function () {
+            $('[id*="ddlType"]').on('change', function () {
+                var val = this.value, $dropDownList = $('[id*="DropDownList"]'), $labelRSO = $('[id*="labelRSO"]');
+
+                if (val == 3) {
+                    $dropDownList.show();
+                    $labelRSO.show();
+                } else {
+                    $dropDownList.hide();
+                    $labelRSO.hide();
+                }
+            });
+        });
     </script>
     <h1>Create Event</h1>
     <div class="jumbotron">
@@ -130,11 +122,6 @@
             <label>Location</label><br/>
             <asp:TextBox ID="eventLocation" runat ="server" CssClass="textbox"/>
         </div>
-        <div>
-            <label>Event Date</label><br/>
-            <asp:Calendar ID="eventDate" runat="server"></asp:Calendar>
-        </div>
-    
         <div>
             <label>Contact Number</label><br/>
             <asp:TextBox ID="eventNumber" runat ="server" CssClass="textbox"/>
@@ -153,16 +140,15 @@
             </asp:DropDownList>
         </div>
         <div>
-            <label>RSO</label><br />
-                <asp:DropDownList ID="DropDownList" runat="server" DataTextField="name" DataValueField="id" Width="300px" CssClass="dropDownList"></asp:DropDownList>
+            <asp:Label ID="labelRSO" runat="server" Text="RSO" Font-Bold="true"></asp:Label><br />
+            <asp:DropDownList ID="DropDownList" runat="server" DataTextField="name" DataValueField="id" Width="300px" CssClass="dropDownList"></asp:DropDownList>
         </div>
         <div>
-            <asp:Button ID="createEvent" runat="server" Text="Create Event" OnClick ="createEvent_Click" CssClass="button" Height="30px"/>
+            <label>Event Date</label><br/>
+            <asp:Calendar ID="eventDate" runat="server"></asp:Calendar>
         </div>
-
-
-        <div class="ltMsg">
-            <asp:Literal ID="ltMessage"  runat="server" />
+        <div>
+            <asp:Button ID="createEvent" runat="server" Text="Create Event" OnClick ="createEvent_Click" CssClass="button" Height="35px"/>
         </div>
     </div>
     

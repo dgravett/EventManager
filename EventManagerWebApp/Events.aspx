@@ -21,6 +21,7 @@
         .rptr table td
         {
             padding: 5px 10px;
+            width: 50%;
         }
         .button{
             border: 0.1em #333336 solid;
@@ -32,28 +33,43 @@
             vertical-align:middle;
             line-height:5px;
         }
+        .dropDownList{
+            width: 500px;
+            height: 30px;
+            align-items: center;
+        }
+        .checkBox{
+            margin-right: 5px;
+        }
+        .textBox{
+            margin-left: 5px;
+            height: 30px;
+        }
     </style>
     <h1>Upcoming Events</h1>
     <div class="jumbotron">
         <div style="margin-left:10px; margin-right:10px;">
-        <asp:Label ID="LabelFilter" runat="server" Text="Filter: "></asp:Label><asp:TextBox ID="TextBoxFilter" runat="server" Height="30px"></asp:TextBox>    
-        <div>
-            <asp:DropDownList ID="DropDownList" runat="server" DataTextField="name" DataValueField="id" Width="300px"></asp:DropDownList>
+            <asp:Label ID="LabelFilter" runat="server" Text="Filter:"></asp:Label>
+            <asp:TextBox ID="TextBoxFilter" runat="server" CssClass="textBox"></asp:TextBox>    
+        <div style="width: 400px;">
+            <asp:DropDownList ID="DropDownList" runat="server" DataTextField="name" DataValueField="id" CssClass="dropDownList"></asp:DropDownList>
         </div>
         <div>
-            <asp:CheckBox ID="CheckBoxPrivate" runat="server" Text="Private"/>    <asp:CheckBox ID="CheckBoxPublic" runat="server" Text="Public"/>    <asp:CheckBox ID="CheckBoxRSO" runat="server" Text="RSO"/>  
+            <asp:CheckBox ID="CheckBoxPrivate" runat="server" Text="Private" CssClass="checkBox"/>
+            <asp:CheckBox ID="CheckBoxPublic" runat="server" Text="Public" CssClass="checkBox"/>
+            <asp:CheckBox ID="CheckBoxRSO" runat="server" Text="RSO" CssClass="checkBox"/>  
             <asp:Button ID="ButtonFilter" runat="server" Text="Filter" OnClick="ButtonFilter_Click" CssClass="button" Height="25px" Font-Size="Medium"/>
         </div>
         </div>
         <div id="RepeaterDiv" runat="server">
             <asp:Repeater ID="Repeater1" runat="server">
                 <ItemTemplate>
-                    <div class="rptr" style="width:300px;">
+                    <div class="rptr" style="width:325px;">
                         <table>
                             <tr><th colspan="2"><%#Eval("name") %></th></tr>
                             <tr><td>Time:</td><td> <%#Eval("time") %></td></tr>
                             <tr><td>Type:</td><td> <%#Eval("EventType") %></td></tr>
-                            <tr><td colspan="2"><asp:Button ID="ButtonViewEvent" runat="server" Text="View Event" UseSubmitBehavior="false" OnClick="ButtonViewEvent_Click" CommandArgument='<%#Eval("id") %>' CssClass="button" Height="25px"/></td></tr>
+                            <tr><td colspan="2"><asp:Button ID="ButtonViewEvent" runat="server" Text="View Event" UseSubmitBehavior="false" OnClick="ButtonViewEvent_Click" CommandArgument='<%#Eval("id") %>' CssClass="button" Height="25px" Font-Size="Medium"/></td></tr>
                         </table>
                     </div>
                 </ItemTemplate>

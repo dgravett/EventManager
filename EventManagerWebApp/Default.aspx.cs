@@ -9,8 +9,7 @@ namespace EventManagerWebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (GlobalUserPassport.globalUserPassport != null)
-                LabelUserLevel.Text = ((DBEnum.User.Type)GlobalUserPassport.globalUserPassport.userType).ToString();
+
         }
     }
 }

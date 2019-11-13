@@ -33,6 +33,24 @@
             min-height:300px;
             background:white;
         }
+        .button{
+            border: 0.1em #333336 solid;
+            border-radius: 0.2em;
+            text-decoration: none;
+            color: black;
+            padding: 0.5em 1em;
+            background-color: #f3f3f3;
+            vertical-align:middle;
+            line-height:5px;
+            height:30px;
+            width:75px;
+            margin-top:10px;
+        }
+        .textbox {  
+            height: 30px;      
+            font-size: 16px;  
+            width: 175px;  
+        }  
     </style>
 
     <div style="margin-top:20px">
@@ -50,7 +68,7 @@
 
     <div>
 
-        <asp:Panel ID="PanelForm" runat="server" align="center" style="display:none">
+        <asp:Panel ID="PanelForm" runat="server" align="center" style="display:none;">
             <div class="FormPopup">
                 <div id="ModalHeader">
                     <br />
@@ -59,26 +77,26 @@
                 </div>
 
                 <div>
-                    <br />
-                    RSO Name:   
-                    <asp:TextBox ID="TextBoxRSOName" runat="server"></asp:TextBox>
-                    <br />
-                    <br />
-                    RSO Description:   
-                    <asp:TextBox ID="TextBoxRSODescription" runat="server"></asp:TextBox>
-                    <br />
-                    <br />
-                    <br />
+                    <table style="width:300px; height:80px">
+                        <tr>
+                            <td style="width: 50%; margin-left:150px">RSO Name:</td>
+                            <td style="width: 50%"><asp:TextBox ID="TextBoxRSOName" runat="server" CssClass="textbox"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; margin-left:150px">RSO Description:</td>
+                            <td style="width: 50%"><asp:TextBox ID="TextBoxRSODescription" runat="server" CssClass="textbox"></asp:TextBox></td>
+                        </tr>
+                    </table>
                 </div>
 
                 <div>
-                    <asp:Button ID="ButtonModalSend" runat="server" Text="Done" UseSubmitBehavior="false" OnClick="ButtonCreateRSO_Click"/>
-                    <input id="ButtonModalCancel" type="button" value="Cancel" />
+                    <asp:Button ID="ButtonModalSend" runat="server" Text="Done" UseSubmitBehavior="false" OnClick="ButtonCreateRSO_Click" CssClass="button"/>
+                    <asp:Button ID="ButtonModalCancel" runat="server" Text="Cancel" CssClass="button"/>
                 </div>
             </div>
         </asp:Panel>
 
-        <asp:Button ID="ButtonModalOpen" runat="server" Text="Create RSO" align="center" Height="40px" Width="149px"/>
+        <asp:Button ID="ButtonModalOpen" runat="server" Text="Create RSO" align="center" Height="40px" Width="149px" CssClass="button"/>
 
         <ajaxToolkit:ModalPopupExtender ID="ModalForm" runat="server" PopupControlID="PanelForm" TargetControlID="ButtonModalOpen" OkControlID="ButtonModalSend"
         CancelControlID="ButtonModalCancel" BackgroundCssClass="ModalPopupBG"></ajaxToolkit:ModalPopupExtender>
@@ -87,35 +105,35 @@
 
 
     <div>
-        <table style="width: 100%;">
+        <table>
             <tr>
                 <td>
-                    <h1>Pending Events</h1>
+                    <h1>Available RSOs</h1>
                 </td>
                 <td>
-                    <h1>Approved Events</h1>
+                    <h1>Joined RSOs</h1>
                 </td>
             </tr>
             <tr>
-                <td><asp:Repeater ID="RepeaterRSOAvailable" runat="server">
+                <td style="width: 50%"><asp:Repeater ID="RepeaterRSOAvailable" runat="server">
                 <ItemTemplate>
-                    <div class="rptr" style="width:600px;">
+                    <div class="rptr" style="width:580px">
                         <table>
                             <tr><th colspan="2"><%#Eval("name") %></th></tr>
-                            <tr><td>Description:</td><td><%#Eval("description") %></td></tr>
-                            <tr><td><asp:Button ID="JoinButton" runat="server" Text="Join RSO" UseSubmitBehavior="false" OnClick="ButtonJoin_Click" CommandArgument='<%#Eval("id") %>'/></td></tr>
+                            <tr><td style="width: 50%">Description:</td><td style="width: 50%"><%#Eval("description") %></td></tr>
+                            <tr><td><asp:Button ID="JoinButton" runat="server" Text="Join RSO" UseSubmitBehavior="false" OnClick="ButtonJoin_Click" CommandArgument='<%#Eval("id") %>' CssClass="button" Width="120px"/></td></tr>
                         </table>
                     </div>
                 </ItemTemplate>
             </asp:Repeater></td>
 
-                <td><asp:Repeater ID="RepeaterRSOJoined" runat="server">
+                <td style="width: 50%"><asp:Repeater ID="RepeaterRSOJoined" runat="server">
                 <ItemTemplate>
-                    <div class="rptr" style="width:600px;">
+                    <div class="rptr" style="width:580px">
                         <table>
                             <tr><th colspan="2"><%#Eval("name") %></th></tr>
-                            <tr><td>Description:</td><td><%#Eval("description") %></td></tr>
-                            <tr><td><asp:Button ID="LeaveButton" runat="server" Text="Leave RSO" UseSubmitBehavior="false" OnClick="ButtonLeave_Click" CommandArgument='<%#Eval("id") %>'/></td></tr>
+                            <tr><td style="width: 50%">Description:</td><td style="width: 50%"><%#Eval("description") %></td></tr>
+                            <tr><td><asp:Button ID="LeaveButton" runat="server" Text="Leave RSO" UseSubmitBehavior="false" OnClick="ButtonLeave_Click" CommandArgument='<%#Eval("id") %>' CssClass="button" Width="120px"/></td></tr>
                         </table>
                     </div>
                 </ItemTemplate>
