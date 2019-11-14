@@ -18,7 +18,10 @@ namespace EventManagerWebApp
         {
             conn = new SqlConnection(ConnectionString.connectionString);
 
-            Bind_ddlUniversity();
+            if (!Page.IsPostBack) 
+            {
+                Bind_ddlUniversity();
+            }
         }
 
         protected void btnSignup_Click(object sender, EventArgs e)
