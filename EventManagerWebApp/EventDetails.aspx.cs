@@ -72,7 +72,7 @@ namespace EventManagerWebApp
                 LabelDescription.Text = "Description: " + dt.Rows[0]["description"] as String;
                 LabelType.Text = "Type: " + dt.Rows[0]["EventType"] as String;
                 LabelTime.Text = "Time: " + dt.Rows[0]["time"].ToString();
-                locationName = dt.Rows[0]["locationName"].ToString();
+                LabelLocation.Text = "Location: " + dt.Rows[0]["locationName"].ToString();
                 lat = float.Parse(dt.Rows[0]["latitude"].ToString());
                 lng = float.Parse(dt.Rows[0]["longitude"].ToString());
             }

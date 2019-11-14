@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data;
-using System.Text;
+using System.Data.SqlClient;
+using System.Web.UI;
 
 namespace EventManagerWebApp
 {
@@ -18,7 +13,10 @@ namespace EventManagerWebApp
         {
             conn = new SqlConnection(ConnectionString.connectionString);
 
-            Bind_ddlUniversity();
+            if (!Page.IsPostBack)
+            {
+                Bind_ddlUniversity();
+            }
         }
 
         protected void btnSignup_Click(object sender, EventArgs e)

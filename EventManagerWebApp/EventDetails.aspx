@@ -81,6 +81,9 @@
         <div>
             <asp:Label ID="LabelTime" runat="server" Text="Label"></asp:Label>
         </div>
+        <div>
+            <asp:Label ID="LabelLocation" runat="server" Text="Label"></asp:Label>
+        </div>
         <div id="map_populate" style="width:100%; height:500px; border: 5px solid #5E5454;"></div>
     </div>
     <div id="RepeaterDiv" runat="server" class="rptr" style="height:800px">

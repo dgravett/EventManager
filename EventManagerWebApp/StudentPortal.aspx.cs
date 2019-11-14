@@ -12,9 +12,9 @@ namespace EventManagerWebApp
     public partial class StudentPortal : System.Web.UI.Page
     {
         SqlConnection conn;
-        public string userName = (GlobalUserPassport.globalUserPassport.userName).ToString();
-        public int userID = (GlobalUserPassport.globalUserPassport.userId);
-        public string userLevel = ((DBEnum.User.Type)GlobalUserPassport.globalUserPassport.userType).ToString();
+        public string userName;
+        public int userID;
+        public string userLevel;
         public string userUni = "";
         DataTable dtRSOJoined, dtAvailable;
 
@@ -24,15 +24,20 @@ namespace EventManagerWebApp
                 Response.Redirect("Default.aspx");
 
             conn = new SqlConnection(ConnectionString.connectionString);
+            userName = (GlobalUserPassport.globalUserPassport.userName).ToString();
+            userID = (GlobalUserPassport.globalUserPassport.userId);
+            userLevel = ((DBEnum.User.Type)GlobalUserPassport.globalUserPassport.userType).ToString();
 
             using (SqlCommand sqlCmd = new SqlCommand())
             {
                 conn.Open();
 
                 sqlCmd.Connection = conn;
-                sqlCmd.CommandText = @"SELECT B.name FROM User_University A, University B WHERE A.id_User = @userID";
+                sqlCmd.CommandText = @"SELECT name
+                                       FROM University
+                                       WHERE University.id = @idUniversity";
 
-                sqlCmd.Parameters.AddWithValue("@userID", userID);
+                sqlCmd.Parameters.AddWithValue("@idUniversity", GlobalUserPassport.globalUserPassport.universityId);
 
                 DataTable dt = new DataTable();
 
@@ -49,11 +54,11 @@ namespace EventManagerWebApp
             LabelUserLevel.Text = userLevel;
             LabelUserUni.Text = userUni;
 
-            JoinedRSO(userID);
-            AvailableRSO(userID);
+            JoinedRSO();
+            AvailableRSO();
         }
 
-        private void JoinedRSO(int UserID)
+        private void JoinedRSO()
         {
             using (SqlCommand sqlCmd = new SqlCommand())
             {
@@ -61,15 +66,26 @@ namespace EventManagerWebApp
 
                 sqlCmd.Connection = conn;
 
-                /*                sqlCmd.CommandText = @"SELECT A.* 
-                                                       FROM RSO A
-                                                       WHERE A.id NOT IN 
-                                                                 (SELECT B.id 
-                                                                 FROM User_RSO A, RSO B 
-                                                                 WHERE (A.id_User = @UserID AND A.id_RSO = B.id))";*/
+                sqlCmd.CommandText = @"SELECT 
+                                            RSO.id, 
+                                            RSO.name,
+                                            RSO.description,
+                                            COUNT(User_RSO.id_User) as NumMembers
+                                      FROM RSO 
+                                           INNER JOIN User_RSO on RSO.id = User_RSO.id_RSO
+                                      WHERE RSO.id in (SELECT
+                                                            RSO.id
+                                                       FROM RSO
+                                                            INNER JOIN RSO_University on RSO.id = RSO_University.id_RSO
+                                                            INNER JOIN User_RSO on RSO.id = User_RSO.id_RSO
+                                                       WHERE
+                                                            RSO_University.id_University = @idUniversity
+                                                            AND User_RSO.id_User = @idUser)
+                                      GROUP BY RSO.id, RSO.name, RSO.description
+                                      ";
 
-                sqlCmd.CommandText = @"SELECT B.id, B.name, B.description FROM User_RSO A, RSO B WHERE (A.id_User = @UserID AND A.id_RSO = B.id)";
-                sqlCmd.Parameters.AddWithValue("@UserID", UserID);
+                sqlCmd.Parameters.AddWithValue("@idUser", GlobalUserPassport.globalUserPassport.userId);
+                sqlCmd.Parameters.AddWithValue("@idUniversity", GlobalUserPassport.globalUserPassport.universityId);
                 dtRSOJoined = new DataTable();
 
                 using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
@@ -82,11 +98,6 @@ namespace EventManagerWebApp
                 RepeaterRSOJoined.DataSource = dtRSOJoined;
                 RepeaterRSOJoined.DataBind();
             }
-        }
-
-        protected void ButtonModalOpen_Click(object sender, EventArgs e)
-        {
-
         }
 
         protected void ButtonLeave_Click(object sender, EventArgs e) 
@@ -108,34 +119,15 @@ namespace EventManagerWebApp
                 sqlCmd.Parameters.AddWithValue("@UserID", userID);
                 sqlCmd.ExecuteNonQuery();
 
-                sqlCmd.CommandText = @"SELECT B.id, B.name, B.description FROM User_RSO A, RSO B WHERE (A.id_User = @UserID AND A.id_RSO = B.id)";
-                dtRSOJoined = new DataTable();
-                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
-                {
-                    dtRSOJoined.Load(sqldr);
-                }
-
-                sqlCmd.CommandText = @"SELECT A.* 
-                                       FROM RSO A
-                                       WHERE A.id NOT IN 
-			                                     (SELECT B.id 
-			                                     FROM User_RSO A, RSO B 
-			                                     WHERE (A.id_User = @UserID AND A.id_RSO = B.id))";
-                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
-                {
-                    dtAvailable.Load(sqldr);
-                }
-
                 conn.Close();
 
-                RepeaterRSOJoined.DataSource = dtRSOJoined;
-                RepeaterRSOJoined.DataBind();
-                RepeaterRSOAvailable.DataSource = dtAvailable;
-                RepeaterRSOAvailable.DataBind();
+                JoinedRSO();
+
+                AvailableRSO();
             }
         }
 
-        private void AvailableRSO(int UserID) 
+        private void AvailableRSO() 
         {
             using (SqlCommand sqlCmd = new SqlCommand())
             {
@@ -143,15 +135,28 @@ namespace EventManagerWebApp
 
                 sqlCmd.Connection = conn;
 
-                sqlCmd.CommandText = @"SELECT A.* 
-                                       FROM RSO A
-                                       WHERE A.id NOT IN 
-			                                     (SELECT B.id 
-			                                     FROM User_RSO A, RSO B 
-			                                     WHERE (A.id_User = @UserID AND A.id_RSO = B.id))";
+                sqlCmd.CommandText = @"SELECT 
+                                            RSO.id, 
+                                            RSO.name,
+                                            RSO.description,
+                                            COUNT(User_RSO.id_User) as NumMembers
+                                      FROM RSO 
+                                           INNER JOIN User_RSO on RSO.id = User_RSO.id_RSO
+                                           LEFT JOIN RSO_University on RSO.id = RSO_University.id_RSO
+                                      WHERE RSO_University.id_University = @idUniversity
+                                           AND RSO.id not in (SELECT
+                                                            RSO.id
+                                                       FROM RSO
+                                                            INNER JOIN RSO_University on RSO.id = RSO_University.id_RSO
+                                                            INNER JOIN User_RSO on RSO.id = User_RSO.id_RSO
+                                                       WHERE
+                                                            RSO_University.id_University = @idUniversity
+                                                            AND User_RSO.id_User = @idUser)
+                                      GROUP BY RSO.id, RSO.name, RSO.description
+                                      ";
 
-/*                sqlCmd.CommandText = @"SELECT B.id, B.name, B.description FROM User_RSO A, RSO B WHERE (A.id_User = @UserID AND A.id_RSO = B.id)";
-*/                sqlCmd.Parameters.AddWithValue("@UserID", UserID);
+                sqlCmd.Parameters.AddWithValue("@idUser", GlobalUserPassport.globalUserPassport.userId);
+                sqlCmd.Parameters.AddWithValue("@idUniversity", GlobalUserPassport.globalUserPassport.universityId);
 
                 dtAvailable = new DataTable();
 
@@ -186,30 +191,11 @@ namespace EventManagerWebApp
                 sqlCmd.Parameters.AddWithValue("@UserID", userID);
                 sqlCmd.ExecuteNonQuery();
 
-                sqlCmd.CommandText = @"SELECT B.id, B.name, B.description FROM User_RSO A, RSO B WHERE (A.id_User = @UserID AND A.id_RSO = B.id)";
-                dtRSOJoined = new DataTable();
-                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
-                {
-                    dtRSOJoined.Load(sqldr);
-                }
-
-                sqlCmd.CommandText = @"SELECT A.* 
-                                       FROM RSO A
-                                       WHERE A.id NOT IN 
-			                                     (SELECT B.id 
-			                                     FROM User_RSO A, RSO B 
-			                                     WHERE (A.id_User = @UserID AND A.id_RSO = B.id))";
-                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
-                {
-                    dtAvailable.Load(sqldr);
-                }
-
                 conn.Close();
 
-                RepeaterRSOJoined.DataSource = dtRSOJoined;
-                RepeaterRSOJoined.DataBind();
-                RepeaterRSOAvailable.DataSource = dtAvailable;
-                RepeaterRSOAvailable.DataBind();
+                JoinedRSO();
+
+                AvailableRSO();
             }
         }
 
@@ -231,6 +217,14 @@ namespace EventManagerWebApp
                 sqlCmd.CommandText = @"INSERT INTO RSO (name, description, approved) 
                                        VALUES (@RSOName,@RSOD, 0) 
 
+                                       DECLARE @idRSO int = SCOPE_IDENTITY()
+
+                                       INSERT INTO RSO_University
+                                       VALUES (@idRSO, @idUniversity)
+        
+                                       INSERT INTO User_RSO
+                                       VALUES (@UserID, @idRSO)
+
                                        UPDATE User_UserType
                                        SET id_UserType = 2
                                        WHERE id_User = @UserID";
@@ -238,35 +232,17 @@ namespace EventManagerWebApp
                 sqlCmd.Parameters.AddWithValue("@RSOName", RSOName);
                 sqlCmd.Parameters.AddWithValue("@RSOD", RSODescription);
                 sqlCmd.Parameters.AddWithValue("@UserID", userID);
+                sqlCmd.Parameters.AddWithValue("@idUniversity", GlobalUserPassport.globalUserPassport.universityId);
 
                 sqlCmd.ExecuteNonQuery();
 
-                sqlCmd.CommandText = @"SELECT B.id, B.name, B.description FROM User_RSO A, RSO B WHERE (A.id_User = @UserID AND A.id_RSO = B.id)";
-                dtRSOJoined = new DataTable();
-                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
-                {
-                    dtRSOJoined.Load(sqldr);
-                }
-
-                sqlCmd.CommandText = @"SELECT A.* 
-                                       FROM RSO A
-                                       WHERE A.id NOT IN 
-			                                     (SELECT B.id 
-			                                     FROM User_RSO A, RSO B 
-			                                     WHERE (A.id_User = @UserID AND A.id_RSO = B.id))";
-                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
-                {
-                    dtAvailable.Load(sqldr);
-                }
-
                 conn.Close();
 
-                GlobalUserPassport.globalUserPassport.userType = 2;
+                JoinedRSO();
 
-                RepeaterRSOJoined.DataSource = dtRSOJoined;
-                RepeaterRSOJoined.DataBind();
-                RepeaterRSOAvailable.DataSource = dtAvailable;
-                RepeaterRSOAvailable.DataBind();
+                AvailableRSO();
+
+                GlobalUserPassport.globalUserPassport.userType = 2;
             }
 
         }

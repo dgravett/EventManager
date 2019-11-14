@@ -121,6 +121,7 @@
                         <table>
                             <tr><th colspan="2"><%#Eval("name") %></th></tr>
                             <tr><td style="width: 50%">Description:</td><td style="width: 50%"><%#Eval("description") %></td></tr>
+                            <tr><td style="width: 50%">Number of Members:</td><td style="width: 50%"><%#Eval("NumMembers") %></td></tr>
                             <tr><td><asp:Button ID="JoinButton" runat="server" Text="Join RSO" UseSubmitBehavior="false" OnClick="ButtonJoin_Click" CommandArgument='<%#Eval("id") %>' CssClass="button" Width="120px"/></td></tr>
                         </table>
                     </div>
@@ -133,6 +134,7 @@
                         <table>
                             <tr><th colspan="2"><%#Eval("name") %></th></tr>
                             <tr><td style="width: 50%">Description:</td><td style="width: 50%"><%#Eval("description") %></td></tr>
+                            <tr><td style="width: 50%">Number of Members:</td><td style="width: 50%"><%#Eval("NumMembers") %></td></tr>
                             <tr><td><asp:Button ID="LeaveButton" runat="server" Text="Leave RSO" UseSubmitBehavior="false" OnClick="ButtonLeave_Click" CommandArgument='<%#Eval("id") %>' CssClass="button" Width="120px"/></td></tr>
                         </table>
                     </div>

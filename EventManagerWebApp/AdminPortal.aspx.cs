@@ -82,11 +82,23 @@ namespace EventManagerWebApp
                 conn.Open();
 
                 sqlCmd.Connection = conn;
-                sqlCmd.CommandText = @"SELECT id, name
+                sqlCmd.CommandText = @"SELECT RSO.id, RSO.name
                                       FROM RSO 
-                                       inner join User_RSO on RSO.id = User_RSO.id_RSO
-                                        where User_RSO.id_User = @idUser";
+                                           INNER JOIN User_RSO on RSO.id = User_RSO.id_RSO
+                                      WHERE RSO.id in (SELECT
+                                                            RSO.id
+                                                       FROM RSO
+                                                            INNER JOIN RSO_University on RSO.id = RSO_University.id_RSO
+                                                            INNER JOIN User_RSO on RSO.id = User_RSO.id_RSO
+                                                       WHERE
+                                                            RSO_University.id_University = @idUniversity
+                                                            AND User_RSO.id_User = @idUser)
+                                      GROUP BY RSO.id, RSO.name
+                                      HAVING COUNT(User_RSO.id_User) >= 5
+                                      ";
+
                 sqlCmd.Parameters.AddWithValue("@idUser", GlobalUserPassport.globalUserPassport.userId);
+                sqlCmd.Parameters.AddWithValue("@idUniversity", GlobalUserPassport.globalUserPassport.universityId);
                 DataTable dtRSO = new DataTable();
 
                 using (SqlDataReader sqldr = sqlCmd.ExecuteReader())

@@ -12,10 +12,10 @@ namespace EventManagerWebApp
     public partial class SuperAdminPortal : System.Web.UI.Page
     {
         SqlConnection conn;
-        public string userName = (GlobalUserPassport.globalUserPassport.userName).ToString();
-        public int userID = (GlobalUserPassport.globalUserPassport.userId);
-        public string userType = ((DBEnum.User.Type)GlobalUserPassport.globalUserPassport.userType).ToString();
-        public int universityID = (GlobalUserPassport.globalUserPassport.universityId);
+        public string userName;
+        public int userID;
+        public string userType;
+        public int universityID;
         public string university = "";
         DataTable dtPendingEvents, dtApprovedEvents;
 
@@ -25,15 +25,21 @@ namespace EventManagerWebApp
                 Response.Redirect("Default.aspx");
 
             conn = new SqlConnection(ConnectionString.connectionString);
+            userName = (GlobalUserPassport.globalUserPassport.userName).ToString();
+            userID = (GlobalUserPassport.globalUserPassport.userId);
+            userType = ((DBEnum.User.Type)GlobalUserPassport.globalUserPassport.userType).ToString();
+            universityID = (GlobalUserPassport.globalUserPassport.universityId);
 
             using (SqlCommand sqlCmd = new SqlCommand())
             {
                 conn.Open();
 
                 sqlCmd.Connection = conn;
-                sqlCmd.CommandText = @"SELECT B.name FROM User_University A, University B WHERE A.id_User = @userID";
+                sqlCmd.CommandText = @"SELECT name
+                                       FROM University
+                                       WHERE University.id = @idUniversity";
 
-                sqlCmd.Parameters.AddWithValue("@userID", userID);
+                sqlCmd.Parameters.AddWithValue("@idUniversity", GlobalUserPassport.globalUserPassport.universityId);
 
                 DataTable dt = new DataTable();
 
@@ -62,9 +68,12 @@ namespace EventManagerWebApp
 
                 sqlCmd.Connection = conn;
 
-                sqlCmd.CommandText = @"SELECT A.*
-                                       FROM Event A
-                                       WHERE A.approved = 0";
+                sqlCmd.CommandText = @"SELECT Event.*
+                                       FROM Event 
+                                           LEFT JOIN Event_EventType on Event.id = Event_EventType.id_Event
+                                           LEFT JOIN EventType on Event_EventType.id_EventType = EventType.id
+                                       WHERE approved = 0
+                                       AND EventType.id <> 3";
 
                 dtPendingEvents = new DataTable();
 
@@ -88,9 +97,12 @@ namespace EventManagerWebApp
 
                 sqlCmd.Connection = conn;
 
-                sqlCmd.CommandText = @"SELECT A.*
-                                       FROM Event A
-                                       WHERE A.approved = 1";
+                sqlCmd.CommandText = @"SELECT Event.*
+                                       FROM Event 
+                                           LEFT JOIN Event_EventType on Event.id = Event_EventType.id_Event
+                                           LEFT JOIN EventType on Event_EventType.id_EventType = EventType.id
+                                       WHERE approved = 1
+                                       AND EventType.id <> 3";
 
                 dtApprovedEvents = new DataTable();
 
@@ -124,24 +136,10 @@ namespace EventManagerWebApp
                 sqlCmd.Parameters.AddWithValue("@EventID", int.Parse(EventID));
                 sqlCmd.ExecuteNonQuery();
 
-                sqlCmd.CommandText = @"SELECT A.*
-                                       FROM Event A
-                                       WHERE A.approved = 1";
-                dtApprovedEvents = new DataTable();
-                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
-                {
-                    dtApprovedEvents.Load(sqldr);
-                }
-
-                sqlCmd.CommandText = @"SELECT A.*
-                                       FROM Event A
-                                       WHERE A.approved = 0";
-                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
-                {
-                    dtPendingEvents.Load(sqldr);
-                }
-
                 conn.Close();
+
+                EventsApproved();
+                EventsPending();
 
                 rptrPending.DataSource = dtPendingEvents;
                 rptrPending.DataBind();
@@ -168,31 +166,16 @@ namespace EventManagerWebApp
                 sqlCmd.Parameters.AddWithValue("@EventID", int.Parse(EventID));
                 sqlCmd.ExecuteNonQuery();
 
-                sqlCmd.CommandText = @"SELECT A.* FROM Event A WHERE approved = 1";
-                dtApprovedEvents = new DataTable();
-                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
-                {
-                    dtApprovedEvents.Load(sqldr);
-                }
-
-                sqlCmd.CommandText = @"SELECT A.* FROM Event A WHERE approved = 0";
-                using (SqlDataReader sqldr = sqlCmd.ExecuteReader())
-                {
-                    dtPendingEvents.Load(sqldr);
-                }
-
                 conn.Close();
+
+                EventsPending();
+                EventsApproved();
 
                 rptrPending.DataSource = dtPendingEvents;
                 rptrPending.DataBind();
                 rptrApproved.DataSource = dtApprovedEvents;
                 rptrApproved.DataBind();
             }
-        }
-
-        protected void btnCreateUniversity_Click(object sender, EventArgs e)
-        {
-            
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)
