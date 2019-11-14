@@ -12,10 +12,6 @@ namespace EventManagerWebApp
     public partial class SuperAdminPortal : System.Web.UI.Page
     {
         SqlConnection conn;
-        public string userName;
-        public int userID;
-        public string userType;
-        public int universityID;
         public string university = "";
         DataTable dtPendingEvents, dtApprovedEvents;
 
@@ -25,10 +21,6 @@ namespace EventManagerWebApp
                 Response.Redirect("Default.aspx");
 
             conn = new SqlConnection(ConnectionString.connectionString);
-            userName = (GlobalUserPassport.globalUserPassport.userName).ToString();
-            userID = (GlobalUserPassport.globalUserPassport.userId);
-            userType = ((DBEnum.User.Type)GlobalUserPassport.globalUserPassport.userType).ToString();
-            universityID = (GlobalUserPassport.globalUserPassport.universityId);
 
             using (SqlCommand sqlCmd = new SqlCommand())
             {
@@ -52,8 +44,8 @@ namespace EventManagerWebApp
                 conn.Close();
             }
 
-            lblUserName.Text = userName;
-            lblUserType.Text = userType;
+            lblUserName.Text = GlobalUserPassport.globalUserPassport.userName.ToString();
+            lblUserType.Text = ((DBEnum.User.Type)GlobalUserPassport.globalUserPassport.userType).ToString();
             lblUniversity.Text = university;
 
             EventsPending();
